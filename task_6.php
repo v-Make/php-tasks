@@ -36,7 +36,7 @@
                         </div>
                     </div>
                     <?php
-                                        $people=[
+            /*                            $people=[
                                             [
                                             "image" => "img/demo/authors/sunny.png",
                                             "image_alt" => "Sunny A.",
@@ -85,7 +85,14 @@
                                             "email_link_title" => "Contact Roberto",
                                             "status" => "banned"
                                             ],
-                                        ];
+                                        ];*/
+
+                                        $pdo= new PDO("mysql:host=localhost;dbname=my_project","root","");
+                                        $sql="SELECT*FROM people";
+                                        $statement=$pdo->prepare($sql);
+                                        $statement->execute();
+                                        $people=$statement->fetchAll(PDO::FETCH_ASSOC);
+
                                         ?>
                     <div class="panel-container show">
                         <div class="panel-content">

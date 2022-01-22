@@ -31,28 +31,45 @@
                         </div>
                     </div>
                     <?php
-                    $items=[
-                    [
-                        "title" => "Privacy",
-                        "description" => "Your privacy is important to us at SmartAdmin and the protection, confidentiality and integrity of your personal data are our prime concerns.
-                                                                          We will only use your personal information to administer your account, provide the products and services you have requested from us, and to keep you informed about our products and services (if you have consented to this).
-                                                                          We only use your data for the purposes for which it was collected and, where relevant, to meet local legal obligations.
-                                                                          We will retain your personal information only for as long as is necessary for the purposes for which the information was collected, or as long as is required pursuant to law."
-                    ],
-                    [
-                        "title" => "Cookies and other similar technologies",
-                        "description" => "We collect certain data through cookies and similar technologies (e.g. web beacons, tags, device identifiers). Cookies are text files placed on your computer to collect standard internet log information and visitor behaviour information. This information is used to track visitor use of the website and to compile statistical reports on website activity. We register your interaction with our services in order to improve our website, content and services. Our use of such technologies and the data collected is described in more detail in our Cookie Policy. You can manage your cookie preferences through your browser settings."
-                    ]
-                    ];
+                    $pdo= new PDO("mysql:host=localhost;dbname=my_project","root","");
+                    $sql="SELECT*FROM tasks";
+                    $statement=$pdo->prepare($sql);
+                    $statement->execute();
+                    $tasks=$statement->fetchAll(PDO::FETCH_ASSOC);
                     ?>
                     <div class="panel-container show">
                         <div class="panel-content">
-                            <div class="fs-lg fw-300 p-5 bg-white border-faded rounded mb-g">
-                            <?php foreach($items as $item):?>
-                            <h2><?php  echo $item['title']?></h2>
-                            <p class="mb-g"><?php echo $item['description']?></p>
-                            <?php endforeach;?>
-                        </div>
+                            <h5 class="frame-heading">
+                                Обычная таблица
+                            </h5>
+                            <div class="frame-wrap">
+                                <table class="table m-0">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Username</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach($tasks as $task):?>
+                                        <tr>
+                                            <th scope="row"><?php echo $task['id'];?></th>
+                                            <td><?php echo $task['firstname']?></td>
+                                            <td><?php echo $task['lastname']?></td>
+                                            <td><?php echo $task['username']?></td>
+                                            <td>
+                                                <a href="show.php?id=<?php echo $task['id'];?>" class="btn btn-info">Просмотреть</a>
+                                                <a href="edit.php?id=<?php echo $task['id'];?>" class="btn btn-warning">Изменить</a>
+                                                <a href="delete.php?id=<?php echo $task['id'];?>" class="btn btn-danger">Удалить</a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach;?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

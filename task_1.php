@@ -66,7 +66,7 @@
                                     <ul id="js-list-msg" class="list-group px-2 pb-2 js-list-filter">
                                         <?php foreach($items as $item):?>
                                         <li class="list-group-item">
-                                            <span data-filter-tags="<?php $item['tags']?>"><?php $item['title']?></span>
+                                            <span data-filter-tags="<?php echo $item['tags']?>"><?php  echo $item['title']?></span>
                                         </li>
                                         <?php endforeach;?>
                                     </ul>
